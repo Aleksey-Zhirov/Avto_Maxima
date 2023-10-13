@@ -1,3 +1,4 @@
+import time
 from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
@@ -14,7 +15,7 @@ class Courses(Base):
         # Locators
 
     courses_bat_1 = "//body//div//div//nav//div//div//div//div//div//button[1]"
-    courses_bat_2 = "//html/body/div[3]/div[3]/ul/li[1]"
+    courses_bat_2 = "//html/body/div[4]/div[3]/ul/li[1]"
     add_a_course = "//button[text()='Добавить курс']"
     course_name = "//input[@id='outlined-basic']"
     beginning_of_the_course = "//form/div[1]/div/div[2]/div/div/div/div/input"
@@ -22,9 +23,9 @@ class Courses(Base):
     discipline = "//input[@id='Дисциплина']"
     teacher = "//input[@id='Преподаватель']"
     description = "//form/div[1]/div/div[6]/div/div/textarea"
-    to_create = "//button[@type='submit']"
+    create = "//button[@type='submit']"
 
-        # Getters
+    # Getters
 
     def get_courses_bat_1(self):
         return WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.XPATH, self.courses_bat_1)))
@@ -53,8 +54,8 @@ class Courses(Base):
     def get_description(self):
         return WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.XPATH, self.description)))
 
-    def get_to_create(self):
-        return WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.XPATH, self.to_create)))
+    def get_create(self):
+        return WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.XPATH, self.create)))
 
         # Actions
 
@@ -100,9 +101,9 @@ class Courses(Base):
         self.get_description().send_keys(description)
         print("Input description")
 
-    def click_to_create(self):
-        self.get_to_create().click()
-        print("Click to_create")
+    def click_create(self):
+        self.get_create().click()
+        print("Click create")
 
         # Methods
 
@@ -117,6 +118,7 @@ class Courses(Base):
         self.click_discipline()
         self.click_teacher()
         self.input_description("Python Selenium")
-        self.click_to_create()
+        self.click_create()
+        self.driver.refresh()
+        time.sleep(5)
         self.get_screenshot()
-
